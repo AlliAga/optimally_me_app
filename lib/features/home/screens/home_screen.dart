@@ -47,22 +47,23 @@ class HomeScreen extends StatelessWidget {
         child: BottomAppBar(
           color: Colors.white,
           padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
-          child:
-              Consumer<HomeProvider>(builder: (context, homeProvider, widget) {
-            return Row(
-              children: homeProvider.navptions.map((navOption) {
-                bool isSelected =
-                    homeProvider.currentNavigationIndex == navOption.index;
-                return NavigaionOption(
-                  onTap: () =>
-                      homeProvider.onNavigationIndexChanged(navOption.index),
-                  icon: navOption.icon,
-                  text: navOption.text,
-                  isSelected: isSelected,
-                );
-              }).toList(),
-            );
-          }),
+          child: Consumer<HomeProvider>(
+            builder: (context, homeProvider, widget) {
+              return Row(
+                children: homeProvider.navptions.map((navOption) {
+                  bool isSelected =
+                      homeProvider.currentNavigationIndex == navOption.index;
+                  return NavigaionOption(
+                    onTap: () =>
+                        homeProvider.onNavigationIndexChanged(navOption.index),
+                    icon: navOption.icon,
+                    text: navOption.text,
+                    isSelected: isSelected,
+                  );
+                }).toList(),
+              );
+            },
+          ),
         ),
       ),
     );
