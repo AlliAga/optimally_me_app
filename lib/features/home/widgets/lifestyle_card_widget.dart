@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:optimally_me_app/features/home/widgets/circular_progress_widget.dart';
 import 'package:optimally_me_app/widgets/button_widget.dart';
 import 'package:optimally_me_app/widgets/progress_bar_widget.dart';
 
@@ -82,35 +83,8 @@ class LifestyleCard extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                SizedBox.square(
-                  dimension: 150,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      CircularProgressIndicator(
-                        value: circularProgressPercentage / 100,
-                        strokeWidth: 8,
-                        strokeCap: StrokeCap.round,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "$circularProgressPercentage%",
-                            textScaler: const TextScaler.linear(3),
-                          ),
-                          Text(
-                            circularProgressDescription,
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                CircularProgress(
+                    percentage: 50, label: circularProgressDescription),
                 const Spacer(),
               ],
             ),
