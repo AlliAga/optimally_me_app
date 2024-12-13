@@ -11,7 +11,7 @@ class AppStyle {
 
   factory AppStyle.getInstance() => _instance;
 
-  Color get primaryColorDark => const Color(0x0fffffff);
+  Color get primaryColorDark => const Color.fromARGB(255, 25, 151, 173);
   Color get scaffoldBackgroundColor => const Color(0xffffffff);
   Color get secondaryColor => const Color(0xFFE7595B);
 }

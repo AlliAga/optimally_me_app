@@ -8,7 +8,7 @@ abstract class StepperInterface {
   int get stepperProgressPercentage;
   bool get isInitialStep;
   bool get isFinalStep;
-  void onNextStep();
+  void onNextStep(BuildContext context);
   void onPreviousStep();
   List<HealthGoal> get healthGoals;
   List<Dietary> get dietaries;

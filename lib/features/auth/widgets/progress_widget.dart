@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:optimally_me_app/widgets/progress_bar_widget.dart';
 
 class FormProgressBar extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
@@ -17,13 +18,8 @@ class FormProgressBar extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          LinearProgressIndicator(
-            minHeight: 6,
-            value: percentage / 100,
-            backgroundColor: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          Text("$percentage%")
+          ProgressBar(percentage: percentage),
+          Text("$percentage%"),
         ],
       ),
     );
