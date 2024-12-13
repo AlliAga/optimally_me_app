@@ -44,17 +44,31 @@ class ThemeProvider extends ChangeNotifier {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(
+        shape: Border(
+            bottom: BorderSide(
+          width: 1.2,
+          color: Colors.grey.shade300,
+        )),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         centerTitle: true,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.w500,
           fontSize: 18,
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: primarySwatch,
+        elevation: 0,
+        labelStyle: const TextStyle(color: Colors.white),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(color: primarySwatch),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(

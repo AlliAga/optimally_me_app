@@ -5,6 +5,7 @@ import 'package:optimally_me_app/features/auth/models/health_goal_model.dart';
 import 'package:optimally_me_app/features/auth/screens/step_one_screen.dart';
 import 'package:optimally_me_app/features/auth/screens/step_three_screen.dart';
 import 'package:optimally_me_app/features/auth/screens/step_two_screen.dart';
+import 'package:optimally_me_app/features/home/screens/home_screen.dart';
 
 class StepperProvider extends ChangeNotifier implements StepperInterface {
   int _currentPageIndex = 0;
@@ -38,8 +39,12 @@ class StepperProvider extends ChangeNotifier implements StepperInterface {
   }
 
   @override
-  void onNextStep() {
-    if (isFinalStep) return;
+  void onNextStep(BuildContext context) async {
+    if (isFinalStep) {
+      await Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (_) => const HomeScreen()), (r) => false);
+      return;
+    }
 
     _currentPageIndex++;
     notifyListeners();

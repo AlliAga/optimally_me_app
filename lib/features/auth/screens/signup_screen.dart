@@ -77,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Expanded(
                           child: FormButton(
                               onPressed: () {
-                                stepperProvider.onNextStep();
+                                stepperProvider.onNextStep(context);
                                 _animateToPage(stepperProvider);
                               },
                               text: !stepperProvider.isFinalStep
