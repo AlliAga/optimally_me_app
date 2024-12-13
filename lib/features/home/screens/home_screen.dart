@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:optimally_me_app/features/home/providers/home_provider.dart';
-import 'package:optimally_me_app/features/home/screens/lifestyle_screen.dart';
 import 'package:optimally_me_app/features/home/widgets/navigation_option_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +36,11 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const LifestyleScreen(),
+      body: Consumer<HomeProvider>(
+        builder: (context, homeProvider, child) {
+          return homeProvider.screens[homeProvider.currentNavigationIndex];
+        },
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           border: Border(
