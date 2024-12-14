@@ -11,7 +11,10 @@ class LifestyleScreen extends StatelessWidget {
     return ListView(
       children: const [
         CaloryCard(),
+<<<<<<< HEAD
         WaterIntakeCard(),
+=======
+>>>>>>> bee51e6b81af6833c987ce7ce62654b3f58c1b82
         LifestyleCard(
           icon: Icons.accessibility,
           title: "Fitness program",
