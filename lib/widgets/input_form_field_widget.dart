@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class InputFormField extends StatelessWidget {
+  final EdgeInsetsGeometry? padding;
   final String label, hintText;
   final TextEditingController? controller;
 
   const InputFormField({
     super.key,
+    this.padding,
     required this.label,
     required this.hintText,
     this.controller,
@@ -14,7 +16,8 @@ class InputFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      padding:
+          padding ?? const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
