@@ -62,6 +62,19 @@ class ThemeProvider extends ChangeNotifier {
           fontSize: 18,
         ),
       ),
+      tabBarTheme: const TabBarTheme(
+          indicatorSize: TabBarIndicatorSize.tab,
+          labelStyle: TextStyle(
+            color: Colors.black,
+          ),
+          unselectedLabelStyle: TextStyle(
+            color: Colors.grey,
+          ),
+          indicator: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(width: 1, color: Colors.black),
+            ),
+          )),
       chipTheme: ChipThemeData(
         backgroundColor: primarySwatch,
         elevation: 0,
