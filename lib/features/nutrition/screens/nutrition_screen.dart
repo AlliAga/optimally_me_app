@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:optimally_me_app/features/nutrition/screens/meal_plan_screen.dart';
 import 'package:optimally_me_app/features/nutrition/screens/plan_overview_screen.dart';
-import 'package:optimally_me_app/features/nutrition/screens/receipies_plan_screen.dart';
+import 'package:optimally_me_app/features/nutrition/screens/recipes_plan_screen.dart';
 
 class NutritionScreen extends StatefulWidget {
   const NutritionScreen({super.key});
@@ -46,7 +46,7 @@ class _NutritionScreenState extends State<NutritionScreen>
           controller: _tabController,
           children: const [
             MealPlanScreen(),
-            ReceipiesScreen(),
+            RecipesScreen(),
             PlanOverviewScreen(),
           ],
         ),
