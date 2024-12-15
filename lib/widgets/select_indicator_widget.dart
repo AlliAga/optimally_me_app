@@ -27,6 +27,7 @@ class SelectIndicator extends StatelessWidget {
         onTap: onTap,
         padding: const EdgeInsets.all(2),
         labelStyle: const TextStyle(color: Colors.white),
+        unselectedLabelStyle: const TextStyle(color: Colors.black),
         isScrollable: false,
         labelPadding: const EdgeInsets.symmetric(vertical: 5),
         indicator: BoxDecoration(

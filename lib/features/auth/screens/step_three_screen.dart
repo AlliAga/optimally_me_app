@@ -14,7 +14,7 @@ class StepThreeScreen extends StatelessWidget {
       children: [
         const StepHeader(
           title: "Tell us about what you eat?",
-          description: "Let us know what your current dietary preference are.",
+          description: "Let us know what your current dietary preferences are.",
         ),
         Expanded(
           child: Consumer<StepperProvider>(
