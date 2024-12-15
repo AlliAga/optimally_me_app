@@ -21,17 +21,32 @@ class HomeScreen extends StatelessWidget {
                 foregroundImage:
                     AssetImage("assets/images/avatars/profile-avatar.jpg"),
               ),
-              Row(
-                children: [
-                  const Icon(Icons.keyboard_arrow_left),
-                  Text(
-                    "Tooday, Nov 9",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const Icon(Icons.keyboard_arrow_right),
-                ],
+              Consumer<HomeProvider>(
+                builder: (context, homeProvider, widget) {
+                  return Row(
+                    children: homeProvider.currentNavigationIndex == 1
+                        ? [
+                            Text(
+                              "Nutrition",
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ]
+                        : [
+                            const Icon(Icons.keyboard_arrow_left),
+                            Text(
+                              "Tooday, Nov 9",
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                            const Icon(Icons.keyboard_arrow_right),
+                          ],
+                  );
+                },
               ),
-              const Icon(CupertinoIcons.bell),
+              Consumer<HomeProvider>(builder: (context, homeProvider, widget) {
+                return homeProvider.currentNavigationIndex == 1
+                    ? const Icon(CupertinoIcons.bag)
+                    : const Icon(CupertinoIcons.bell);
+              }),
             ],
           ),
         ),

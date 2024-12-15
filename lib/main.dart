@@ -3,6 +3,7 @@ import 'package:optimally_me_app/features/auth/providers/step_one_provider.dart'
 import 'package:optimally_me_app/features/auth/providers/stepper_provider.dart';
 import 'package:optimally_me_app/features/auth/screens/signup_screen.dart';
 import 'package:optimally_me_app/features/home/providers/home_provider.dart';
+import 'package:optimally_me_app/features/nutrition/providers/meal_plan_provider.dart';
 import 'package:optimally_me_app/features/nutrition/providers/recipe_provider.dart';
 import 'package:optimally_me_app/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => HomeProvider()),
+      ChangeNotifierProvider(create: (_) => MealPlanProvider()),
       ChangeNotifierProvider(create: (_) => RecipeProvider()),
       ChangeNotifierProvider(create: (_) => StepOneProvider()),
       ChangeNotifierProvider(create: (_) => StepperProvider()),
