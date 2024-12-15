@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:optimally_me_app/features/nutrition/providers/meal_plan_provider.dart';
-import 'package:optimally_me_app/features/nutrition/widgets/breakfast_card_widget.dart';
+import 'package:optimally_me_app/features/nutrition/widgets/meal_card_widget.dart';
 import 'package:optimally_me_app/features/nutrition/widgets/popups/food_category_popup.dart';
 import 'package:optimally_me_app/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
