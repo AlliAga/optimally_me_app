@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:optimally_me_app/features/nutrition/providers/meal_plan_provider.dart';
-import 'package:optimally_me_app/features/nutrition/widgets/breakfast_card_widget.dart';
+import 'package:optimally_me_app/features/nutrition/widgets/meal_card_widget.dart';
+import 'package:optimally_me_app/features/nutrition/widgets/popups/food_category_popup.dart';
 import 'package:optimally_me_app/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -103,7 +104,7 @@ class MealPlanScreen extends StatelessWidget {
           ]
               .map(
                 (data) => Container(
-                  margin: EdgeInsets.only(right: 10),
+                  margin: const EdgeInsets.only(right: 10),
                   child: Row(
                     children: [
                       Text(
@@ -122,45 +123,54 @@ class MealPlanScreen extends StatelessWidget {
               )
               .toList(),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            children: [
-              Text(
-                "Breakfast",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.more_vert),
-              )
-            ],
-          ),
-        ),
         Consumer<MealPlanProvider>(builder: (context, provider, widget) {
           return Column(
-            children: [
-              ...provider.breakfasts.map((breakfast) {
-                return BreakfastCard(
-                  breakfast: breakfast,
-                );
-              }),
-              Row(
+            children: provider.foodCategories.map((foodCategroy) {
+              return Column(
                 children: [
-                  Expanded(
-                    child: FormButton(
-                      onPressed: () {},
-                      icon: Icons.add,
-                      type: ButtonType.outlined,
-                      text: "Add breakfast",
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: [
+                        Text(
+                          foodCategroy.text,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.more_vert),
+                        )
+                      ],
                     ),
                   ),
+                  Column(
+                    children: [
+                      ...provider.selectedMeals(foodCategroy.text).map((meal) {
+                        return MealCard(meal: meal);
+                      }),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FormButton(
+                              onPressed: () async => await showModalBottomSheet(
+                                context: context,
+                                builder: (context) => const FoodCategoryPopup(),
+                              ),
+                              icon: Icons.add,
+                              type: ButtonType.outlined,
+                              text: "Add ${foodCategroy.text.toLowerCase()}",
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
-              ),
-            ],
+              );
+            }).toList(),
           );
-        })
+        }),
       ],
     );
   }
