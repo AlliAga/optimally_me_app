@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:optimally_me_app/features/nutrition/models/breakfast_model.dart';
+import 'package:optimally_me_app/features/nutrition/models/meal_model.dart';
 import 'package:optimally_me_app/features/nutrition/providers/meal_plan_provider.dart';
 import 'package:optimally_me_app/features/nutrition/widgets/tag_chip_widget.dart';
 import 'package:provider/provider.dart';
 
-class BreakfastCard extends StatelessWidget {
-  final Breakfast breakfast;
+class MealCard extends StatelessWidget {
+  final Meal meal;
 
-  const BreakfastCard({super.key, required this.breakfast});
+  const MealCard({super.key, required this.meal});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class BreakfastCard extends StatelessWidget {
               width: 60,
               height: 60,
               fit: BoxFit.cover,
-              breakfast.image,
+              meal.image,
             ),
           ),
           const SizedBox(width: 15),
@@ -33,12 +33,12 @@ class BreakfastCard extends StatelessWidget {
                   children: [
                     Expanded(
                         child: Text(
-                      breakfast.name,
+                      meal.name,
                       style: Theme.of(context).textTheme.headlineSmall,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     )),
-                    TagChip(text: breakfast.tags[0]),
+                    TagChip(text: meal.tags[0]),
                     Consumer<MealPlanProvider>(
                       builder: (context, provider, widget) {
                         return Checkbox(
@@ -46,9 +46,9 @@ class BreakfastCard extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4)),
                           side: const BorderSide(width: 0.5),
-                          value: breakfast.isSelected,
+                          value: meal.isSelected,
                           onChanged: (isSelected) =>
-                              provider.selectDeselectBreakFast(breakfast),
+                              provider.selectDeselectMeal(meal),
                         );
                       },
                     ),
@@ -59,11 +59,11 @@ class BreakfastCard extends StatelessWidget {
                   children: [
                     {
                       "icon": Icons.person_outline,
-                      "text": "${breakfast.servings} servings"
+                      "text": "${meal.servings} servings"
                     },
                     {
                       "icon": Icons.calculate_outlined,
-                      "text": "${breakfast.kcal} kcal"
+                      "text": "${meal.kcal} kcal"
                     },
                   ]
                       .map((data) => Container(

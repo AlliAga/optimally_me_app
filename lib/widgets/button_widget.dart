@@ -31,7 +31,9 @@ class FormButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          icon != null ? Icon(icon) : const SizedBox.shrink(),
+          icon != null
+              ? Icon(icon, color: Colors.black)
+              : const SizedBox.shrink(),
           Text(
             text,
             style: TextStyle(color: isOutlined ? Colors.black : Colors.white),
