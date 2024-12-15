@@ -42,4 +42,10 @@ class RecipeProvider extends ChangeNotifier implements ReceipyInterface {
 
   @override
   List<Recipe> get recipes => _recipes;
+
+  @override
+  void bookMarkRecipe(Recipe recipe) {
+    recipe.isBookmarked = !(recipe.isBookmarked ?? false);
+    notifyListeners();
+  }
 }
