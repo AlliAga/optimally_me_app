@@ -46,6 +46,8 @@ class ThemeProvider extends ChangeNotifier {
       ),
       appBarTheme: AppBarTheme(
         elevation: 0,
+        shadowColor: Colors.white,
+        surfaceTintColor: Colors.white,
         shape: Border(
             bottom: BorderSide(
           width: 1.2,

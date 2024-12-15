@@ -6,11 +6,13 @@ class FormButton extends StatelessWidget {
   final void Function()? onPressed;
   final String text;
   final ButtonType? type;
+  final IconData? icon;
 
   const FormButton({
     super.key,
     this.onPressed,
     required this.text,
+    this.icon,
     this.type = ButtonType.filled,
   });
 
@@ -26,9 +28,15 @@ class FormButton extends StatelessWidget {
             )
           : null,
       onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(color: isOutlined ? Colors.black : Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          icon != null ? Icon(icon) : const SizedBox.shrink(),
+          Text(
+            text,
+            style: TextStyle(color: isOutlined ? Colors.black : Colors.white),
+          ),
+        ],
       ),
     );
   }
