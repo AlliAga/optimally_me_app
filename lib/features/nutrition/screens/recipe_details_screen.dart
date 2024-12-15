@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:optimally_me_app/features/nutrition/models/recipe_model.dart';
+import 'package:optimally_me_app/features/nutrition/providers/recipe_provider.dart';
 import 'package:optimally_me_app/features/nutrition/widgets/tag_chip_widget.dart';
 import 'package:optimally_me_app/widgets/button_widget.dart';
+import 'package:provider/provider.dart';
 
 class RecipeDetailsScreen extends StatelessWidget {
   final Recipe recipe;
@@ -60,10 +62,17 @@ class RecipeDetailsScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 const SizedBox(width: 15),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.bookmark),
-                )
+                Consumer<RecipeProvider>(
+                    builder: (context, recipeProvider, widget) {
+                  return IconButton(
+                    onPressed: () => recipeProvider.bookMarkRecipe(recipe),
+                    icon: Icon(
+                      recipe.isBookmarked ?? false
+                          ? Icons.bookmark
+                          : Icons.bookmark_outline,
+                    ),
+                  );
+                })
               ],
             ),
           ),

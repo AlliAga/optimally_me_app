@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:optimally_me_app/features/nutrition/models/recipe_model.dart';
+import 'package:optimally_me_app/features/nutrition/providers/recipe_provider.dart';
 import 'package:optimally_me_app/features/nutrition/screens/recipe_details_screen.dart';
 import 'package:optimally_me_app/features/nutrition/widgets/tag_chip_widget.dart';
+import 'package:provider/provider.dart';
 
 class RecipeCard extends StatelessWidget {
   final Recipe recipe;
@@ -63,14 +65,18 @@ class RecipeCard extends StatelessWidget {
                               (e) => TagChip(text: e),
                             ),
                             const Spacer(),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Icon(
-                                recipe.isBookmarked ?? false
-                                    ? Icons.bookmark
-                                    : Icons.bookmark_outline,
-                              ),
-                            )
+                            Consumer<RecipeProvider>(
+                                builder: (context, recipeProvider, widget) {
+                              return InkWell(
+                                onTap: () =>
+                                    recipeProvider.bookMarkRecipe(recipe),
+                                child: Icon(
+                                  recipe.isBookmarked ?? false
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_outline,
+                                ),
+                              );
+                            })
                           ],
                         ),
                         const SizedBox(height: 10),
