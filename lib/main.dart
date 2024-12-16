@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:optimally_me_app/features/auth/providers/step_one_provider.dart';
+import 'package:optimally_me_app/features/auth/providers/step_three_provider.dart';
+import 'package:optimally_me_app/features/auth/providers/step_two_provider.dart';
 import 'package:optimally_me_app/features/auth/providers/stepper_provider.dart';
 import 'package:optimally_me_app/features/auth/screens/signup_screen.dart';
 import 'package:optimally_me_app/features/home/providers/home_provider.dart';
@@ -15,6 +17,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => MealPlanProvider()),
       ChangeNotifierProvider(create: (_) => RecipeProvider()),
       ChangeNotifierProvider(create: (_) => StepOneProvider()),
+      ChangeNotifierProvider(create: (_) => StepTwoProvider()),
+      ChangeNotifierProvider(create: (_) => StepThreeProvider()),
       ChangeNotifierProvider(create: (_) => StepperProvider()),
     ],
     child: const OptimallyMe(),
