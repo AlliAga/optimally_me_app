@@ -31,21 +31,42 @@ class HomeScreen extends StatelessWidget {
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ]
-                        : [
-                            const Icon(Icons.keyboard_arrow_left),
-                            Text(
-                              "Tooday, Nov 9",
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                            const Icon(Icons.keyboard_arrow_right),
-                          ],
+                        : homeProvider.currentNavigationIndex == 2
+                            ? [
+                                Text(
+                                  "Device Data",
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                ),
+                              ]
+                            : homeProvider.currentNavigationIndex == 3
+                                ? [
+                                    Text(
+                                      "Add fast",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                  ]
+                                : [
+                                    const Icon(Icons.keyboard_arrow_left),
+                                    Text(
+                                      "Tooday, Nov 9",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                    const Icon(Icons.keyboard_arrow_right),
+                                  ],
                   );
                 },
               ),
               Consumer<HomeProvider>(builder: (context, homeProvider, widget) {
-                return homeProvider.currentNavigationIndex == 1
-                    ? const Icon(CupertinoIcons.bag)
-                    : const Icon(CupertinoIcons.bell);
+                return homeProvider.currentNavigationIndex == 0
+                    ? const Icon(CupertinoIcons.bell)
+                    : homeProvider.currentNavigationIndex == 1
+                        ? const Icon(CupertinoIcons.bag)
+                        : const SizedBox.shrink();
               }),
             ],
           ),
