@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:optimally_me_app/features/auth/providers/stepper_provider.dart';
+import 'package:optimally_me_app/features/auth/models/dietary_model.dart';
+import 'package:optimally_me_app/features/auth/providers/step_three_provider.dart';
 import 'package:optimally_me_app/features/auth/widgets/dietary_card_widget.dart';
 import 'package:optimally_me_app/features/auth/widgets/step_header_widget.dart';
 import 'package:provider/provider.dart';
@@ -17,13 +18,16 @@ class StepThreeScreen extends StatelessWidget {
           description: "Let us know what your current dietary preferences are.",
         ),
         Expanded(
-          child: Consumer<StepperProvider>(
-              builder: (context, stepperProvider, widget) {
+          child:
+              Consumer<StepThreeProvider>(builder: (context, provider, widget) {
             return ListView.builder(
-              itemCount: stepperProvider.dietaries.length,
+              itemCount: provider.dietaries.length,
               itemBuilder: (context, index) {
+                final Dietary dietary = provider.dietaries[index];
+
                 return DietaryCard(
-                  dietary: stepperProvider.dietaries[index],
+                  onTap: () => provider.selectDeselectDietary(dietary),
+                  dietary: dietary,
                 );
               },
             );
