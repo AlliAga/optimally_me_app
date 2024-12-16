@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:optimally_me_app/features/home/interfaces/home_interface.dart';
 import 'package:optimally_me_app/features/home/models/nav_option.dart';
+import 'package:optimally_me_app/features/home/screens/add_fast_screen.dart';
+import 'package:optimally_me_app/features/home/screens/device_data_screen.dart';
 import 'package:optimally_me_app/features/home/screens/lifestyle_screen.dart';
 import 'package:optimally_me_app/features/nutrition/screens/nutrition_screen.dart';
 
@@ -24,8 +26,8 @@ class HomeProvider extends ChangeNotifier implements HomeInterface {
   List<Widget> get screens => const [
         LifestyleScreen(),
         NutritionScreen(),
-        LifestyleScreen(),
-        LifestyleScreen(),
+        DeviceDataScreen(),
+        AddFastScreen(),
         LifestyleScreen(),
       ];
 
