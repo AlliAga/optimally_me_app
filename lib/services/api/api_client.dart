@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -39,23 +41,28 @@ class ApiClient implements IApiHelper {
   Future<ResponseData> makeCall(BuildContext? context,
       {required path,
       Method method = Method.GET,
-      required Map<String, dynamic> body,
+      Map<String, dynamic>? body,
+      Map<String, dynamic>? queryParameters,
       bool isFormData = false}) async {
     try {
       return await dio
-          .requestUri(Uri(path: path),
-              data: isFormData ? FormData.fromMap(body) : body,
+          .requestUri(Uri(path: path).replace(queryParameters: queryParameters),
+              data: isFormData ? FormData.fromMap(body ?? {}) : body,
               options: Options(
                 method: method.name,
               ))
           .then((response) {
+        log(response.statusCode.toString());
+        log((ResponseData.fromJson(response.data).recipes ?? [])
+            .length
+            .toString());
         // context == null
         //     ? null
         //     : showSnackMessage(context,
         //         status: response.data['status'],
         //         message: response.data['message']);
 
-        if (response.statusCode == 200) {
+        if (response.statusCode == 200 || response.statusCode == 304) {
           return ResponseData.fromJson(response.data);
         }
 
