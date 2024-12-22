@@ -32,6 +32,9 @@ class RecipeProvider extends Debounce
   bool get isLastPage => _total == _recipes.length;
 
   @override
+  List<Recipe> get recipes => _recipes;
+
+  @override
   void onSearch(String value) {
     _q = value;
     _skip = 0;
@@ -43,9 +46,6 @@ class RecipeProvider extends Debounce
           searchRecipes(value);
         });
   }
-
-  @override
-  List<Recipe> get recipes => _recipes;
 
   @override
   Future<void> searchRecipes(String search) async {

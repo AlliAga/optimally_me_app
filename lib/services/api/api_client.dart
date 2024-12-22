@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +52,10 @@ class ApiClient implements IApiHelper {
                 method: method.name,
               ))
           .then((response) {
+        log(response.statusCode.toString());
+        log((ResponseData.fromJson(response.data).recipes ?? [])
+            .length
+            .toString());
         // context == null
         //     ? null
         //     : showSnackMessage(context,
