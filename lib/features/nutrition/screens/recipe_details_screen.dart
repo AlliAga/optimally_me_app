@@ -37,7 +37,7 @@ class RecipeDetailsScreen extends StatelessWidget {
             tag: "${recipe.id}",
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
+              child: Image.network(
                 height: 350,
                 fit: BoxFit.cover,
                 recipe.image ?? "",
@@ -50,10 +50,10 @@ class RecipeDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Wrap(
                     runSpacing: 12,
-                    children: [...recipe.tags ?? [], "+4"]
+                    children: (recipe.tags ?? [])
                         .map(
                           (e) => TagChip(text: e),
                         )
@@ -82,6 +82,46 @@ class RecipeDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  "Instructions",
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+                const SizedBox(height: 15),
+                ...(recipe.instructions ?? []).map((instrcution) => Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.check,
+                            color: Colors.white,
+                            size: 15,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            instrcution,
+                            style: const TextStyle(
+                              color: Colors.blueGrey,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   recipe.name ?? "",
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
@@ -97,7 +137,7 @@ class RecipeDetailsScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "BBy Optimally Me",
+                      "By Optimally Me",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const SizedBox(width: 5),
