@@ -40,7 +40,7 @@ class RecipeDetailsScreen extends StatelessWidget {
               child: Image.asset(
                 height: 350,
                 fit: BoxFit.cover,
-                recipe.image,
+                recipe.image ?? "",
               ),
             ),
           ),
@@ -53,7 +53,7 @@ class RecipeDetailsScreen extends StatelessWidget {
                   flex: 2,
                   child: Wrap(
                     runSpacing: 12,
-                    children: [...recipe.tags, "+4"]
+                    children: [...recipe.tags ?? [], "+4"]
                         .map(
                           (e) => TagChip(text: e),
                         )
@@ -82,7 +82,7 @@ class RecipeDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  recipe.name,
+                  recipe.name ?? "",
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
                 const SizedBox(height: 15),

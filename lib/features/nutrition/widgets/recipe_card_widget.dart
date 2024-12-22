@@ -43,11 +43,11 @@ class RecipeCard extends StatelessWidget {
                   tag: "${recipe.id}",
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
+                    child: Image.network(
                       width: 125,
                       height: 125,
                       fit: BoxFit.cover,
-                      recipe.image,
+                      recipe.image ?? "",
                     ),
                   ),
                 ),
@@ -61,7 +61,10 @@ class RecipeCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            ...[recipe.tags[0], "+2"].map(
+                            ...[
+                              recipe.tags![0],
+                              "+${(recipe.tags ?? []).length - 1}"
+                            ].map(
                               (e) => TagChip(text: e),
                             ),
                             const Spacer(),
@@ -84,7 +87,7 @@ class RecipeCard extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                recipe.name,
+                                recipe.name ?? "",
                                 textScaler: const TextScaler.linear(1.25),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w600,
@@ -99,8 +102,14 @@ class RecipeCard extends StatelessWidget {
                         const Spacer(),
                         Row(
                           children: [
-                            {"icon": CupertinoIcons.clock, "text": "15 min"},
-                            {"icon": CupertinoIcons.person, "text": "2"}
+                            {
+                              "icon": CupertinoIcons.clock,
+                              "text": "${recipe.prepTimeMinutes} min"
+                            },
+                            {
+                              "icon": CupertinoIcons.person,
+                              "text": "${recipe.servings} Serving"
+                            }
                           ]
                               .map((data) => Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -112,7 +121,7 @@ class RecipeCard extends StatelessWidget {
                                       ),
                                       const SizedBox(width: 5),
                                       Text(
-                                        "${data['text']} Serving",
+                                        "${data['text']}",
                                         style: const TextStyle(
                                           color: Colors.blueGrey,
                                         ),

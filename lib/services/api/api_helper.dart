@@ -12,7 +12,8 @@ abstract class IApiHelper {
     BuildContext? context, {
     required path,
     Method method = Method.GET,
-    required Map<String, dynamic> body,
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   });
 }
