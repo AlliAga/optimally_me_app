@@ -1,10 +1,13 @@
 import 'package:optimally_me_app/features/nutrition/models/recipe_model.dart';
 
 abstract class ReceipyInterface {
+  void initialState();
+  bool get isLoading;
   void onSearch(String value);
-  int get page;
   bool get isLastPage;
-  void nextPage();
-  Future<List<Recipe>> recipes();
+  List<Recipe> get recipes;
+  Future<List<Recipe>> fetchRecipes();
+  Future<void> fetchMoreRecipes();
+  Future<void> searchRecipes(String search);
   void bookMarkRecipe(Recipe recipe);
 }

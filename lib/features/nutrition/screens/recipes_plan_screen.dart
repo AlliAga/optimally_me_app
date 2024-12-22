@@ -17,7 +17,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
   @override
   void initState() {
     super.initState();
-
+    context.read<RecipeProvider>().initialState();
     _scrollController.addListener(_scrollListener);
   }
 
@@ -25,7 +25,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
-      context.read<RecipeProvider>().nextPage();
+      context.read<RecipeProvider>().fetchMoreRecipes();
     }
   }
 
@@ -42,10 +42,13 @@ class _RecipesScreenState extends State<RecipesScreen> {
         TextFormField(
           onChanged: (value) => context.read<RecipeProvider>().onSearch(value),
         ),
-        Consumer<RecipeProvider>(builder: (context, recipeProvider, widget) {
-          return FutureBuilder<List<Recipe>>(
-              future: recipeProvider.recipes(),
-              builder: (context, snapshot) {
+        FutureBuilder<List<Recipe>>(
+            future: context.read<RecipeProvider>().fetchRecipes(),
+            builder: (context, snapshot) {
+              return Consumer<RecipeProvider>(
+                  builder: (context, recipeProvider, widget) {
+                List<Recipe> recipes = recipeProvider.recipes;
+
                 if (snapshot.hasError) {
                   return Text("${snapshot.error}");
                 }
@@ -54,21 +57,42 @@ class _RecipesScreenState extends State<RecipesScreen> {
                   return const LinearProgressIndicator();
                 }
 
-                List<Recipe> recipes = snapshot.data ?? <Recipe>[];
-
                 return Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: recipes.length,
-                    itemBuilder: (context, index) {
-                      return RecipeCard(
-                        recipe: recipes[index],
-                      );
-                    },
+                  child: Column(
+                    children: [
+                      Text(recipes.length.toString()),
+                      Expanded(
+                        child: ListView.builder(
+                          controller: _scrollController,
+                          itemCount: recipes.length,
+                          itemBuilder: (context, index) {
+                            return RecipeCard(
+                              recipe: recipes[index],
+                            );
+                          },
+                        ),
+                      ),
+                      recipeProvider.isLoading
+                          ? Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              color: Theme.of(context).primaryColor,
+                              child: const Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "Loading More...",
+                                      style: TextStyle(color: Colors.white),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ))
+                          : const SizedBox.shrink(),
+                    ],
                   ),
                 );
               });
-        }),
+            }),
       ],
     );
   }
