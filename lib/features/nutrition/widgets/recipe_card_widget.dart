@@ -15,11 +15,13 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (_) => RecipeDetailsScreen(
-                    recipe: recipe,
-                  ))),
+        context,
+        MaterialPageRoute(
+          builder: (_) => RecipeDetailsScreen(
+            recipe: recipe,
+          ),
+        ),
+      ),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -41,13 +43,15 @@ class RecipeCard extends StatelessWidget {
                 Hero(
                   key: Key("${recipe.id}"),
                   tag: "${recipe.id}",
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      width: 125,
-                      height: 125,
-                      fit: BoxFit.cover,
-                      recipe.image ?? "",
+                  child: SizedBox(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image(
+                        image: NetworkImage(recipe.image ?? ""),
+                        width: 125,
+                        height: 125,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
