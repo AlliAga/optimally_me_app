@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:optimally_me_app/features/nutrition/models/recipe_model.dart';
 import 'package:optimally_me_app/features/nutrition/providers/recipe_provider.dart';
+import 'package:optimally_me_app/features/nutrition/widgets/difficulty_tag_widget.dart';
+import 'package:optimally_me_app/features/nutrition/widgets/meal_type_tag_widget.dart';
 import 'package:optimally_me_app/features/nutrition/widgets/tag_chip_widget.dart';
 import 'package:optimally_me_app/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
@@ -32,17 +34,102 @@ class RecipeDetailsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         children: [
-          Hero(
-            key: Key("${recipe.id}"),
-            tag: "${recipe.id}",
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                height: 350,
-                fit: BoxFit.cover,
-                recipe.image ?? "",
-              ),
-            ),
+          LayoutBuilder(
+            builder: (context, box) {
+              return Stack(
+                children: [
+                  Hero(
+                    key: Key("${recipe.id}"),
+                    tag: "${recipe.id}",
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        width: box.maxWidth,
+                        height: 350,
+                        fit: BoxFit.cover,
+                        recipe.image ?? "",
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    left: 10,
+                    child: SizedBox(
+                      width: box.maxWidth / 1.5,
+                      child: MealTypeTag(recipe: recipe),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: DifficultyTag(difficulty: recipe.difficulty ?? ""),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    child: Wrap(
+                      spacing: 10,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.75),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 18,
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                "${recipe.rating}",
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.75),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.reviews,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                "Reviews (${recipe.reviewCount})",
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
@@ -112,6 +199,49 @@ class RecipeDetailsScreen extends StatelessWidget {
                           ),
                         ),
                       ],
+                    )),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Ingredients",
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+                const SizedBox(height: 15),
+                ...(recipe.ingredients ?? []).map((instrcution) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.star_border,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              instrcution,
+                              style: const TextStyle(
+                                color: Colors.blueGrey,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     )),
               ],
             ),

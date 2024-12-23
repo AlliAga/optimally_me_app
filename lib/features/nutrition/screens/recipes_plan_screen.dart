@@ -3,6 +3,7 @@ import 'package:optimally_me_app/features/nutrition/models/recipe_model.dart';
 import 'package:optimally_me_app/features/nutrition/providers/recipe_provider.dart';
 import 'package:optimally_me_app/features/nutrition/widgets/recipe_card_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class RecipesScreen extends StatefulWidget {
   const RecipesScreen({super.key});
@@ -39,8 +40,31 @@ class _RecipesScreenState extends State<RecipesScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextFormField(
-          onChanged: (value) => context.read<RecipeProvider>().onSearch(value),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              isDense: true,
+              hintText: "Search recipe",
+              hintStyle: const TextStyle(
+                color: Colors.grey,
+                fontSize: 14,
+              ),
+              filled: true,
+              fillColor: Colors.grey.withOpacity(.2),
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Colors.grey,
+                size: 20,
+              ),
+            ),
+            onChanged: (value) =>
+                context.read<RecipeProvider>().onSearch(value),
+          ),
         ),
         FutureBuilder<List<Recipe>>(
             future: context.read<RecipeProvider>().fetchRecipes(),
@@ -54,13 +78,28 @@ class _RecipesScreenState extends State<RecipesScreen> {
                 }
 
                 if (!snapshot.hasData) {
-                  return const LinearProgressIndicator();
+                  return Expanded(
+                    child: Skeletonizer(
+                      enabled: true,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return RecipeCard(
+                            recipe: Recipe(
+                              image: "https://freesvg.org/img/Placeholder.png",
+                              name: "Thejsjdkjd",
+                              servings: 1,
+                              tags: ["sdisjd", "sdksjd"],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  );
                 }
 
                 return Expanded(
                   child: Column(
                     children: [
-                      Text(recipes.length.toString()),
                       Expanded(
                         child: ListView.builder(
                           controller: _scrollController,
